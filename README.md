@@ -41,58 +41,58 @@
       }
     })
 ## 完整实例
-  import axios from 'xh-miniprogram-axios/index'
-  import { baseUrl, tipsDuration } from '../utils/base'
-  // 请求拦截
-  axios.prototype.requestEach((base) => {
-    base.baseUrl = baseUrl
-    base.timeout = 1000 * 1000
-    base.params = { t: new Date().getTime() }
-    const tokenInfo = wx.getStorageSync('tokenInfo')
-    // console.log(tokenInfo)
-    base.header = {
-    }
-    if (typeof tokenInfo === 'object') {
-      base.header[tokenInfo.tokenName] = 'Bearer ' + tokenInfo.tokenValue
-    }
-    wx.showLoading({
-      title: '加载中',
-      mask: true
+    import axios from 'xh-miniprogram-axios/index'
+    import { baseUrl, tipsDuration } from '../utils/base'
+    // 请求拦截
+    axios.prototype.requestEach((base) => {
+      base.baseUrl = baseUrl
+      base.timeout = 1000 * 1000
+      base.params = { t: new Date().getTime() }
+      const tokenInfo = wx.getStorageSync('tokenInfo')
+      // console.log(tokenInfo)
+      base.header = {
+      }
+      if (typeof tokenInfo === 'object') {
+        base.header[tokenInfo.tokenName] = 'Bearer ' + tokenInfo.tokenValue
+      }
+      wx.showLoading({
+        title: '加载中',
+        mask: true
+      })
+      return base
     })
-    return base
-  })
-  // 响应拦截
-  axios.prototype.responseEach((response) => {
-    wx.hideLoading()
-    // console.log(response, 'responsae')
-    if (response.statusCode !== 200) {
-      if (wx.getStorageSync('userIsStop').indexOf('停用') !== -1) {
+    // 响应拦截
+    axios.prototype.responseEach((response) => {
+      wx.hideLoading()
+      // console.log(response, 'responsae')
+      if (response.statusCode !== 200) {
+        if (wx.getStorageSync('userIsStop').indexOf('停用') !== -1) {
+          wx.showToast({
+            title: wx.getStorageSync('userIsStop'),
+            icon: 'error',
+            mask: true,
+            duration: tipsDuration
+          })
+          return
+        }
+        // 错误
         wx.showToast({
-          title: wx.getStorageSync('userIsStop'),
+          title: response.data.returnMsg,
           icon: 'error',
           mask: true,
           duration: tipsDuration
         })
-        return
+        // if (response.data.returnMsg === 'token无效') {
+        //   // 续费token
+        //   wx.login({
+        //     success: (res) => {
+        //       console.log(res, 'login111')
+        //     }
+        //   })
+        // }
+      } else {
+        // 正确处理
       }
-      // 错误
-      wx.showToast({
-        title: response.data.returnMsg,
-        icon: 'error',
-        mask: true,
-        duration: tipsDuration
-      })
-      // if (response.data.returnMsg === 'token无效') {
-      //   // 续费token
-      //   wx.login({
-      //     success: (res) => {
-      //       console.log(res, 'login111')
-      //     }
-      //   })
-      // }
-    } else {
-      // 正确处理
-    }
-    return response.data
-  })
-  export default axios
+      return response.data
+    })
+    export default axios
