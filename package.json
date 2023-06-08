@@ -1,0 +1,38 @@
+{
+  "_from": "xh-miniprogram-axios",
+  "_id": "xh-miniprogram-axios@1.2.5",
+  "_inBundle": false,
+  "_integrity": "sha512-vm5UAEy7ko3KEE8FXCcpJgBHP91/w8Oi6DCKXVkv050g0ZcgIzKZwpxV8kDBg/hnJcHm974yjN4s6ANq1Toceg==",
+  "_location": "/xh-miniprogram-axios",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "xh-miniprogram-axios",
+    "name": "xh-miniprogram-axios",
+    "escapedName": "xh-miniprogram-axios",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmmirror.com/xh-miniprogram-axios/-/xh-miniprogram-axios-1.2.5.tgz",
+  "_shasum": "1f30c7ba781a8caf6c11c44044e07c832f370ec7",
+  "_spec": "xh-miniprogram-axios",
+  "_where": "C:\\Users\\10060\\Desktop\\Project\\qiyiMiniProgram",
+  "author": "",
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "基于Promise对wx.request原生进行二次封装",
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "xh-miniprogram-axios",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.2.5"
+}
