@@ -12,8 +12,8 @@ interface Base {
   baseUrl: string,
   header: Object
 }
-export class Axios {
-  constructor(config: AxiosConfig);
+interface Axios {
+  (config: AxiosConfig): Promise<AxiosConfig>;
   interceptors: {
     requestBefore: BeforeUse<Base>,
     responseBefore: BeforeUse<any>

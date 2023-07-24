@@ -1,20 +1,20 @@
 import request from "./request/index.js"
 // Axios原型工具类
-const requestUntils = {
+const requestUntils = Object.create({
   interceptors: {
-    requestBefore (useFun) {
-      return useFun
+    requestBefore (callBack) {
+      requestUntils.__proto__.requestBefore  = callBack
     },
-    responseBefore (useFun) {
-      return useFun
+    responseBefore (callBack) {
+      requestUntils.__proto__.responseBefore  = callBack
     }
   }
-}
-const axios = Object.create(requestUntils, (config) => {
+})
+const axios = (config) => {
   let baseConfig = null
-  if (typeof axios.interceptors.requestBefore === 'function') {
+  if (typeof axios.__proto__.requestBefore === 'function') {
     // 处理请求拦截器
-    baseConfig = axios.interceptors.requestBefore()({
+    baseConfig = axios.__proto__.requestBefore({
       baseUrl: '',
       header: ''
     })
@@ -37,19 +37,20 @@ const axios = Object.create(requestUntils, (config) => {
     request(config)
       .then((res) => {
         // 处理响应拦截器高阶函数
-        if (typeof axios.interceptors.responseBefore === 'function') {
-          reject(axios.interceptors.responseBefore()(res))
+        if (typeof axios.__proto__.responseBefore === 'function') {
+          reject(axios.__proto__.responseBefore(res))
         } else {
           reject(res)
         }
       })
       .catch(err => {
-        if (typeof axios.interceptors.responseBefore === 'function') {
-          resolve(axios.interceptors.responseBefore()(err))
+        if (typeof axios.__proto__.responseBefore === 'function') {
+          resolve(axios.__proto__.responseBefore(err))
         } else {
           resolve(err)
         }
       })
   })
-})
+}
+axios.__proto__ = requestUntils
 export default axios
