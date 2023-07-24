@@ -13,7 +13,9 @@ interface Base {
   header: Object
 }
 interface Axios {
+  // 参数
   (config: AxiosConfig): Promise<AxiosConfig>;
+  // 拦截器
   interceptors: {
     requestBefore: BeforeUse<Base>,
     responseBefore: BeforeUse<any>
