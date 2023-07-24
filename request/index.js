@@ -9,7 +9,7 @@ export default (base) => new Promise((success, error) => {
     url: base.url + (base.params ? '?' : '') + (base.params ? queryUrl.substring(0, queryUrl.length - 1) : ''),
     header: base.header,
     method: base.method,
-    dataType: 'json',
+    dataType: base.dataType||'json',
     data: base.data,
     timeout: base.timeout,
     success: (reseponse) => {
