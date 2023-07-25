@@ -32,6 +32,7 @@ const axios = (config) => {
       ...baseConfig.data
     }
     config.timeout = baseConfig.timeout
+    config.dataType = baseConfig.dataType
   }
   return new Promise(async (reject, resolve) => {
     request(config)

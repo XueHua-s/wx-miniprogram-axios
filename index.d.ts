@@ -1,16 +1,17 @@
 interface BeforeUse <T> {
-  (config: T): T
+  (config: T): void
 }
 interface AxiosConfig {
   method: "POST" | "GET" | "PUT" | "DELETE",
   header: Object,
   dataType: "json" | string,
   data: Object,
-  timeout: Number,
+  params: Object,
+  timeout: Number
 }
-interface Base {
+interface Base extends AxiosConfig {
   baseUrl: string,
-  header: Object
+  method: undefined
 }
 interface Axios {
   // 参数
