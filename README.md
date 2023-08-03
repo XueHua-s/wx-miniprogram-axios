@@ -19,7 +19,7 @@
     一些公共的请求参数, 都可以在通过请求拦截器进行添加。
     你需要在请求前做的一些操作,都可以在里面进行。(例如: loading动画)
 ### 实例
-    axios.prototype.requestBefore((config) => {
+    axios.interceptors.requestBefore((config) => {
       config.baseUrl = 'https://www.baidu.com',
       config.header = {
         userType: '2'
